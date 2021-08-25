@@ -152,13 +152,13 @@ async def playlist(client, message):
         temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style="md")
-    msg = "**Now Playing** in {}".format(message.chat.title)
+    msg = "**Đang phát** in {}".format(message.chat.title)
     msg += "\n- " + now_playing
     msg += "\n- Req by " + by
     temp.pop(0)
     if temp:
         msg += "\n\n"
-        msg += "**Queue**"
+        msg += "**Hàng đợi**"
         for song in temp:
             name = song[0]
             usr = song[1].mention(style="md")
@@ -216,14 +216,14 @@ async def ee(client, message):
     if stats:
         await message.reply(stats)
     else:
-        await message.reply("No VC instances running in this chat")
+        await message.reply("Không có phiên bản VC nào chạy trong cuộc trò chuyện này")
 
 
 @Client.on_message(filters.command("player") & filters.group & ~filters.edited)
 @authorized_users_only
 async def settings(client, message):
     if message.chat.id in DISABLED_GROUPS:
-        await message.reply("Music Player is Disabled")
+        await message.reply("Trình phát nhạc bị tắt")
         return    
     playing = None
     chat_id = get_chat_id(message.chat)
@@ -238,7 +238,7 @@ async def settings(client, message):
         else:
             await message.reply(stats, reply_markup=r_ply("play"))
     else:
-        await message.reply("No VC instances running in this chat")
+        await message.reply("Không có phiên bản VC nào chạy trong cuộc trò chuyện này")
 
 
 @Client.on_message(
@@ -253,34 +253,34 @@ async def hfmm(_, message):
         return
     if len(message.command) != 2:
         await message.reply_text(
-            "I only recognize `/musicplayer on` and /musicplayer `off only`"
+            "Tôi chỉ nhận ra `/musicplayer on` và `/musicplayer off`"
         )
         return
     status = message.text.split(None, 1)[1]
     message.chat.id
     if status == "ON" or status == "on" or status == "On":
-        lel = await message.reply("`Processing...`")
+        lel = await message.reply("`Đang xử lý...`")
         if not message.chat.id in DISABLED_GROUPS:
-            await lel.edit("Music Player Already Activated In This Chat")
+            await lel.edit("Trình phát nhạc đã được kích hoạt trong cuộc trò chuyện này")
             return
         DISABLED_GROUPS.remove(message.chat.id)
         await lel.edit(
-            f"Music Player Successfully Enabled For Users In The Chat {message.chat.id}"
+            f"Trình phát nhạc được bật thành công cho người dùng trong nhóm {message.chat.id}"
         )
 
     elif status == "OFF" or status == "off" or status == "Off":
-        lel = await message.reply("`Processing...`")
+        lel = await message.reply("`Đang xử lý...`")
         
         if message.chat.id in DISABLED_GROUPS:
-            await lel.edit("Music Player Already turned off In This Chat")
+            await lel.edit("Trình phát nhạc đã bị tắt trong nhóm này")
             return
         DISABLED_GROUPS.append(message.chat.id)
         await lel.edit(
-            f"Music Player Successfully Deactivated For Users In The Chat {message.chat.id}"
+            f"Trình phát nhạc đã bị vô hiệu hóa thành công đối với người dùng trong nhóm {message.chat.id}"
         )
     else:
         await message.reply_text(
-            "I only recognize `/musicplayer on` and /musicplayer `off only`"
+            "Tôi chỉ nhận ra `/musicplayer on` và `/musicplayer off`"
         )    
         
 
@@ -301,9 +301,9 @@ async def p_cb(b, cb):
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
-        msg = "**Now Playing** in {}".format(cb.message.chat.title)
+        msg = "**Đang phát** in {}".format(cb.message.chat.title)
         msg += "\n- " + now_playing
-        msg += "\n- Req by " + by
+        msg += "\n- Yêu cầu bởi " + by
         temp.pop(0)
         if temp:
             msg += "\n\n"
@@ -312,7 +312,7 @@ async def p_cb(b, cb):
                 name = song[0]
                 usr = song[1].mention(style="md")
                 msg += f"\n- {name}"
-                msg += f"\n- Req by {usr}\n"
+                msg += f"\n- Yêu cầu bởi {usr}\n"
         await cb.message.edit(msg)
 
 
@@ -477,24 +477,24 @@ async def play(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        "<b>Remember to add helper to your channel</b>",
+                        "<b>Nhớ thêm người trợ giúp vào kênh của bạn</b>",
                     )
                     pass
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "<b>Add me as admin of yor group first</b>",
+                        "<b>Trước tiên, hãy thêm tôi làm quản trị viên của nhóm bạn</b>",
                     )
                     return
 
                 try:
                     await USER.join_chat(invitelink)
                     await USER.send_message(
-                        message.chat.id, "I joined this group for playing music in VC"
+                        message.chat.id, "Tôi đã tham gia nhóm này để chơi nhạc trong VC"
                     )
                     await lel.edit(
-                        "<b>helper userbot joined your chat</b>",
+                        "<b>người trợ giúp người dùng đã tham gia cuộc trò chuyện của bạn</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -502,15 +502,15 @@ async def play(_, message: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your group due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add assistant to your Group and try again</b>",
+                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} không thể tham gia nhóm của bạn do có nhiều yêu cầu cho userbot! Đảm bảo người dùng không bị cấm trong nhóm."
+                        "\n\nHoặc thêm trợ lý vào Nhóm của bạn theo cách thủ công và thử lại</b>",
                     )
     try:
         await USER.get_chat(chid)
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            f"<i> {user.first_name} Userbot not in this chat, Ask admin to send /play command for first time or add {user.first_name} manually</i>"
+            f"<i> {user.first_name} Userbot không có trong cuộc trò chuyện này, Yêu cầu quản trị viên gửi /play lệnh cho lần đầu tiên hoặc thêm {user.first_name} thủ công</i>"
         )
         return
     text_links=None
@@ -541,7 +541,7 @@ async def play(_, message: Message):
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
             raise DurationLimitError(
-                f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed to play!"
+                f"❌ Video dài hơn {DURATION_LIMIT} phút không được phép chơi!"
             )
         keyboard = InlineKeyboardMarkup(
             [
@@ -554,7 +554,7 @@ async def play(_, message: Message):
         )
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/c9b3eeeef7d32593caca6.jpg"
+        thumb_name = "https://pbs.twimg.com/media/Dgut_v3U8AI9YLw.jpg"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
@@ -567,7 +567,7 @@ async def play(_, message: Message):
         )
     elif urls:
         query = toxt
-        await lel.edit("🎵 **Processing**")
+        await lel.edit("🎵 **Đang xử lý**")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -584,7 +584,7 @@ async def play(_, message: Message):
 
         except Exception as e:
             await lel.edit(
-                "Song not found.Try another song or maybe spell it properly."
+                "Không tìm thấy bài hát. Hãy thử một bài hát khác hoặc có thể viết đúng chính tả."
             )
             print(str(e))
             return
@@ -611,25 +611,25 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += " " + str(i)
         print(query)
-        await lel.edit("🎵 **Processing**")
+        await lel.edit("🎵 **Đang xử lý**")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         
         try:
           results = YoutubeSearch(query, max_results=5).to_dict()
         except:
-          await lel.edit("Give me something to play")
+          await lel.edit("Cho tôi một cái gì đó để chơi")
         # Looks like hell. Aren't it?? FUCK OFF
         try:
-            toxxt = "**Select the song you want to play**\n\n"
+            toxxt = "**Chọn bài hát bạn muốn chơi**\n\n"
             j = 0
             useer=user_name
             emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣",]
 
             while j < 5:
-                toxxt += f"{emojilist[j]} <b>Title - [{results[j]['title']}](https://youtube.com{results[j]['url_suffix']})</b>\n"
-                toxxt += f" ╚ <b>Duration</b> - {results[j]['duration']}\n"
-                toxxt += f" ╚ <b>Views</b> - {results[j]['views']}\n"
-                toxxt += f" ╚ <b>Channel</b> - {results[j]['channel']}\n\n"
+                toxxt += f"{emojilist[j]} <b>[{results[j]['title']}](https://youtube.com{results[j]['url_suffix']})</b>\n"
+                toxxt += f" ╚ <b>Thời lượng</b> - {results[j]['duration']}\n"
+       #        toxxt += f" ╚ <b>Views</b> - {results[j]['views']}\n"
+        #        toxxt += f" ╚ <b>Channel</b> - {results[j]['channel']}\n\n"
 
                 j += 1            
             koyboard = InlineKeyboardMarkup(
@@ -667,7 +667,7 @@ async def play(_, message: Message):
 
             except Exception as e:
                 await lel.edit(
-                    "Song not found.Try another song or maybe spell it properly."
+                    "Không tìm thấy bài hát. Hãy thử một bài hát khác hoặc có thể viết đúng chính tả."
                 )
                 print(str(e))
                 return
@@ -700,7 +700,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"#⃣ Your requested song **queued** at position {position}!",
+            caption=f"#⃣ Bài hát yêu cầu của bạn **đã xếp hàng** ở vị trí {position}!",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -717,12 +717,12 @@ async def play(_, message: Message):
         try:
             await callsmusic.set_stream(chat_id, file_path)
         except:
-            message.reply("Group Call is not connected or I can't join it")
+            message.reply("Cuộc gọi nhóm không được kết nối hoặc tôi không thể tham gia cuộc gọi đó")
             return
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="▶️ **Playing** here the song requested by {} via Youtube Music".format(
+            caption="▶️ **Đang phát** ở đây bài hát được yêu cầu bởi {} bởi owomusic".format(
                 message.from_user.mention()
             ),
         )
@@ -735,7 +735,7 @@ async def ytplay(_, message: Message):
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
-    lel = await message.reply("🔄 **Processing**")
+    lel = await message.reply("🔄 **Đang xử lý**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
 
@@ -753,24 +753,24 @@ async def ytplay(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        "<b>Remember to add helper to your channel</b>",
+                        "<b>Nhớ thêm người trợ giúp vào kênh của bạn</b>",
                     )
                     pass
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "<b>Add me as admin of yor group first</b>",
+                        "<b>Trước tiên hãy thêm tôi làm quản trị viên của nhóm bạn</b>",
                     )
                     return
 
                 try:
                     await USER.join_chat(invitelink)
                     await USER.send_message(
-                        message.chat.id, "I joined this group for playing music in VC"
+                        message.chat.id, "Tôi đã tham gia nhóm này để chơi nhạc trong VC"
                     )
                     await lel.edit(
-                        "<b>helper userbot joined your chat</b>",
+                        "<b>người trợ giúp người dùng đã tham gia cuộc trò chuyện của bạn</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -778,7 +778,7 @@ async def ytplay(_, message: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your group due to heavy requests for userbot! Make sure user is not banned in group."
+                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your group due to heavy requests for Trợ lý! Make sure user is not banned in group."
                         "\n\nOr manually add assistant to your Group and try again</b>",
                     )
     try:
@@ -786,7 +786,7 @@ async def ytplay(_, message: Message):
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            f"<i> {user.first_name} Userbot not in this chat, Ask admin to send /play command for first time or add {user.first_name} manually</i>"
+            f"<i> {user.first_name} Trợ lý không có trong cuộc trò chuyện này, Yêu cầu quản trị viên gửi /play lệnh cho lần đầu tiên hoặc thêm {user.first_name} manually</i>"
         )
         return
     await lel.edit("🔎 **Finding**")
@@ -798,7 +798,7 @@ async def ytplay(_, message: Message):
     for i in message.command[1:]:
         query += " " + str(i)
     print(query)
-    await lel.edit("🎵 **Processing**")
+    await lel.edit("🎵 **Đang xử lý**")
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -815,7 +815,7 @@ async def ytplay(_, message: Message):
 
     except Exception as e:
         await lel.edit(
-            "Song not found.Try another song or maybe spell it properly."
+            "Không tìm thấy bài hát. Hãy thử một bài hát khác hoặc có thể viết đúng chính tả."
         )
         print(str(e))
         return
@@ -865,19 +865,19 @@ async def ytplay(_, message: Message):
         try:
            await callsmusic.set_stream(chat_id, file_path)
         except:
-            message.reply("Group Call is not connected or I can't join it")
+            message.reply("Cuộc gọi nhóm không được kết nối hoặc tôi không thể tham gia cuộc gọi đó")
             return
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="▶️ **Playing** here the song requested by {} via Youtube Music 😜".format(
+            caption="▶️ **Đang phát** ở đây bài hát được yêu cầu by {} via owomusic 😜".format(
                 message.from_user.mention()
             ),
         )
         os.remove("final.png")
         return await lel.delete()
     
-@Client.on_message(filters.command("dplay") & filters.group & ~filters.edited)
+@Client.on_message(filters.command("dplayy") & filters.group & ~filters.edited)
 async def deezer(client: Client, message_: Message):
     if message_.chat.id in DISABLED_GROUPS:
         return
@@ -1015,7 +1015,7 @@ async def deezer(client: Client, message_: Message):
     os.remove("final.png")
 
 
-@Client.on_message(filters.command("splay") & filters.group & ~filters.edited)
+@Client.on_message(filters.command("splayy") & filters.group & ~filters.edited)
 async def jiosaavn(client: Client, message_: Message):
     global que
     if message_.chat.id in DISABLED_GROUPS:
@@ -1063,7 +1063,7 @@ async def jiosaavn(client: Client, message_: Message):
                     # print(e)
                     await lel.edit(
                         f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your group due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add @MusicHelper to your Group and try again</b>",
+                        "\n\nOr manually add @owomusic to your Group and try again</b>",
                     )
     try:
         await USER.get_chat(chid)
@@ -1193,7 +1193,7 @@ async def lol_cb(b, cb):
     try:    
         duuration= round(duration / 60)
         if duuration > DURATION_LIMIT:
-            await cb.message.edit(f"Music longer than {DURATION_LIMIT}min are not allowed to play")
+            await cb.message.edit(f"Nhạc dài hơn {DURATION_LIMIT}tối thiểu không được phép chơi")
             return
     except:
         pass
@@ -1236,7 +1236,7 @@ async def lol_cb(b, cb):
         await cb.message.delete()
         await b.send_photo(chat_id,
             photo="final.png",
-            caption=f"#⃣  Song requested by {r_by.mention} **queued** at position {position}!",
+            caption=f"#⃣  Bài hát được yêu cầu bởi {r_by.mention} **xếp hàng** ở vị trí {position}!",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -1258,7 +1258,7 @@ async def lol_cb(b, cb):
         await b.send_photo(chat_id,
             photo="final.png",
             reply_markup=keyboard,
-            caption=f"▶️ **Playing** here the song requested by {r_by.mention} via Youtube Music 😎",
+            caption=f"▶️ **Đang chơi** ở đây bài hát được yêu cầu bởi{r_by.mention} via Youtube Music 😎",
         )
         
         os.remove("final.png")
