@@ -21,52 +21,50 @@ from StreamMusic.config import PROJECT_NAME
 from StreamMusic.config import SUPPORT_GROUP
 from StreamMusic.config import UPDATES_CHANNEL
 class Messages():
-      START_MSG = "**Hello 👋 [{}](tg://user?id={})!**\n\n🤖 I am an advanced bot created for playing music in the voice chats of Telegram Groups & Channels.\n\n✅ Send me /help for more info."
+      START_MSG = "**Hello 👋 [{}](tg://user?id={})!**\n\n🤖 Tôi là một bot nâng cao được tạo ra để chơi nhạc trong các cuộc trò chuyện thoại của các Nhóm & Kênh Telegram.\n\n✅ Gửi cho tôi /help để biết thêm thông tin."
       HELP_MSG = [
         ".",
 f"""
-**Hey 👋 Welcome back to {PROJECT_NAME}
+**Này 👋 Chào mừng bạn trở lại {PROJECT_NAME}
 
-⚪️ {PROJECT_NAME} can play music in your group's voice chat as well as channel voice chats
+⚪️ {PROJECT_NAME} có thể phát nhạc trong cuộc trò chuyện thoại của nhóm bạn cũng như các cuộc trò chuyện thoại trên kênh
 
-⚪️ Assistant name >> @{ASSISTANT_NAME}\n\nClick next for instructions**
+⚪️ Tên trợ lý >> @{ASSISTANT_NAME}\n\nNhấp vào tiếp theo để xem hướng dẫn**
 """,
 
 f"""
 **Setting up**
 
-1) Make bot admin (Group and in channel if use cplay)
-2) Start a voice chat
-3) Try /play [song name] for the first time by an admin
-*) If userbot joined enjoy music, If not add @{ASSISTANT_NAME} to your group and retry
+1) Đặt bot làm quản trị viên (Nhóm và trong kênh nếu sử dụng cplay)
+2) Bắt đầu trò chuyện thoại
+3) Thử /play [tên bài hát] lần đầu tiên bởi quản trị viên
+*) Nếu userbot tham gia, hãy thưởng thức âm nhạc, Nếu không hãy thêm @{ASSISTANT_NAME} vào nhóm của bạn và thử lại
 
-**For Channel Music Play**
-1) Make me admin of your channel 
-2) Send /userbotjoinchannel in linked group
-3) Now send commands in linked group
+**Đối với kênh phát nhạc**
+1) Đặt tôi làm quản trị viên kênh của bạn
+2) Gửi /userbotjoinchannel trong nhóm được liên kết
+3) Bây giờ gửi lệnh trong nhóm được liên kết
 
 **Commands**
 
 **=>> Song Playing 🎧**
 
-- /play: Play the requestd song
+- /play: Phát bài hát được yêu cầu
 - /play [yt url] : Play the given yt url
 - /play [reply yo audio]: Play replied audio
-- /dplay: Play song via deezer
-- /splay: Play song via jio saavn
-- /ytplay: Directly play song via Youtube Music
+- /ytplay: Phát trực tiếp bài hát qua Youtube Music
 
 **=>> Playback ⏯**
 
-- /player: Open Settings menu of player
-- /skip: Skips the current track
-- /pause: Pause track
-- /resume: Resumes the paused track
-- /end: Stops media playback
-- /current: Shows the current Playing track
-- /playlist: Shows playlist
+- /player: Mở menu Cài đặt của trình phát
+- /skip: Bỏ qua bản nhạc hiện tại
+- /pause: Tạm dừng bản nhạc
+- /resume: Tiếp tục bản nhạc đã tạm dừng
+- /end: Dừng phát lại phương tiện
+- /current: Hiển thị bản nhạc đang phát hiện tại
+- /playlist: Hiển thị danh sách phát
 
-*Player cmd and all other cmds except /play, /current  and /playlist  are only for admins of the group.
+*Người chơi cmd và tất cả các cmd khác ngoại trừ /play, /current  và /playlist  chỉ dành cho quản trị viên của nhóm.
 """,
         
 f"""
@@ -75,8 +73,6 @@ f"""
 ⚪️ For linked group admins only:
 
 - /cplay [song name] - play song you requested
-- /cdplay [song name] - play song you requested via deezer
-- /csplay [song name] - play song you requested via jio saavn
 - /cplaylist - Show now playing list
 - /cccurrent - Show now playing
 - /cplayer - open music player settings panel
@@ -103,13 +99,6 @@ f"""
 - /musicplayer [on/off]: Enable/Disable Music player
 - /admincache: Updates admin info of your group. Try if bot isn't recognize admin
 - /userbotjoin: Invite @{ASSISTANT_NAME} Userbot to your chat
-
-**=>> Commands for Sudo Users ⚔️**
-
- - /userbotleaveall - remove assistant from all chats
- - /gcast <reply to message> - globally brodcast replied message to all chats
- - /pmpermit [on/off] - enable/disable pmpermit message
-*Sudo Users can execute any command in any groups
-
+- /userbotleaveall - remove assistant from all chats
 """
       ]
