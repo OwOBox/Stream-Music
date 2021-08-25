@@ -33,7 +33,7 @@ async def addchannel(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>Add me as admin of yor group first</b>",
+            "<b>rước tiên, hãy thêm tôi làm quản trị viên của nhóm bạn</b>",
         )
         return
 
@@ -44,20 +44,20 @@ async def addchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "I joined here as you requested")
+        await USER.send_message(message.chat.id, "Tôi đã tham gia ở đây như bạn yêu cầu")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your chat</b>",
+            "<b>người trợ giúp đã có trong cuộc trò chuyện của bạn</b>",
         )
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n User {user.first_name} couldn't join your group due to heavy join requests for userbot! Make sure user is not banned in group."
-            "\n\nOr manually add @owohub to your Group and try again</b>",
+            f"<b>🛑 XẢY RA LỖI 🛑 \n User {user.first_name} không thể tham gia kênh của bạn có thể do đầy bộ nhớ! Đảm bảo rằng người dùng không bị cấm trong kênh."
+            "\nnHoặc thêm thủ công @owomusic vào Nhóm của bạn và thử lại</b>",
         )
         return
     await message.reply_text(
-        "<b>helper userbot joined your chat</b>",
+        "<b>người trợ giúp người dùng đã tham gia cuộc trò chuyện của bạn</b>",
     )
 
 
@@ -68,8 +68,8 @@ async def rem(USER, message):
         await USER.leave_chat(message.chat.id)
     except:
         await message.reply_text(
-            f"<b>User couldn't leave your group! May be floodwaits."
-            "\n\nOr manually kick me from to your Group</b>",
+            f"<b>Người dùng không thể rời khỏi nhóm của bạn! Có thể là lũ lụt."
+            "\n\nHoặc kick tôi ra khỏi Nhóm của bạn theo cách thủ công</b>",
         )
         return
     
@@ -78,17 +78,17 @@ async def bye(client, message):
     if message.from_user.id in SUDO_USERS:
         left=0
         failed=0
-        lol = await message.reply("Assistant Leaving all chats")
+        lol = await message.reply("Trợ lý Rời khỏi tất cả các cuộc trò chuyện")
         async for dialog in USER.iter_dialogs():
             try:
                 await USER.leave_chat(dialog.chat.id)
                 left = left+1
-                await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+                await lol.edit(f"Trợ lý rời đi ... Đã rời {left} nhóm. Failed: {failed} nhóm.")
             except:
                 failed=failed+1
-                await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+                await lol.edit(f"Trợ lý rời đi ... Đã rời {left} nhóm. Failed: {failed} nhóm.")
             await asyncio.sleep(0.7)
-        await client.send_message(message.chat.id, f"Left {left} chats. Failed {failed} chats.")
+        await client.send_message(message.chat.id, f"Đã rời {left} nhóm. Failed {failed} nhóm.")
     
     
 @Client.on_message(filters.command(["userbotjoinchannel","ubjoinc"]) & ~filters.private & ~filters.bot)
@@ -100,14 +100,14 @@ async def addcchannel(client, message):
       conid = conchat.linked_chat.id
       chid = conid
     except:
-      await message.reply("Is chat even linked")
+      await message.reply("Nhóm thậm chí còn chưa được liên kết")
       return    
     chat_id = chid
     try:
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>Add me as admin of yor channel first</b>",
+            "<b>Trước tiên hãy thêm tôi làm quản trị viên kênh của bạn</b>",
         )
         return
 
@@ -118,17 +118,17 @@ async def addcchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "I joined here as you requested")
+        await USER.send_message(message.chat.id, "Tôi đã tham gia ở đây như bạn yêu cầu")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your channel</b>",
+            "<b>Người trợ giúp đã có trong kênh của bạn</b>",
         )
         return
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n User {user.first_name} couldn't join your channel due to heavy join requests for userbot! Make sure user is not banned in channel."
-            "\n\nOr manually add @owohub to your Group and try again</b>",
+            f"<b>🛑 XẢY RA LỖI 🛑 \n User {user.first_name} không thể tham gia kênh của bạn có thể do đầy bộ nhớ! Đảm bảo rằng người dùng không bị cấm trong kênh."
+            "\nnHoặc thêm thủ công @owomusic vào Nhóm của bạn và thử lại</b>",
         )
         return
     await message.reply_text(
