@@ -791,7 +791,7 @@ async def jiosaavn(client: Client, message_: Message):
                     # print(e)
                     await lel.edit(
                         f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your channel due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add @MusicHelper to your Group and try again</b>",
+                        "\n\nOr manually add @owomusic to your Group and try again</b>",
                     )
     try:
         await USER.get_chat(chid)
@@ -829,7 +829,7 @@ async def jiosaavn(client: Client, message_: Message):
             ],
             [
                 InlineKeyboardButton(
-                    text="Join Updates Channel", url=f"https://t.me/{updateschannel}"
+                    text="Tham gia kênh cập nhật", url=f"https://t.me/{updateschannel}"
                 )
             ],
             [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
